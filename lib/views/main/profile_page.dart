@@ -1,10 +1,8 @@
-// Profile ve ayarlar sayfası: kullanıcı bilgilerini, tercihlerini ve takip ettikleri bildirimleri gösterir.
-// Aşağıda kullanılan importlar ve her birinin kısaca ne işe yaradığı yorum satırlarıyla belirtilmiştir.
-import 'package:akilli_kampus_proje/view_models/notification_view_model.dart'; // Takip edilen bildirimlerin listesini sağlayan view model
-import 'package:akilli_kampus_proje/views/auth/login_view.dart'; // Çıkış sonrası yönlendirilecek Login ekranı
-import 'package:flutter/material.dart'; // Flutter UI bileşenleri
-import 'package:provider/provider.dart'; // State management için Provider
-import '../../view_models/auth_view_model.dart'; // Kullanıcı bilgileri ve güncelleme fonksiyonları
+import 'package:akilli_kampus_proje/view_models/notification_view_model.dart'; 
+import 'package:akilli_kampus_proje/views/auth/login_view.dart'; 
+import 'package:flutter/material.dart'; 
+import 'package:provider/provider.dart'; 
+import '../../view_models/auth_view_model.dart'; 
 
 // Stateless widget: profil sayfası, kullanıcı bilgilerini okur ve ayarları değiştirir.
 class ProfilePage extends StatelessWidget {
@@ -23,7 +21,6 @@ class ProfilePage extends StatelessWidget {
         title: const Text("Profil ve Ayarlar"),
         centerTitle: true,
       ),
-      // Eğer kullanıcı bilgisi yoksa yükleniyor göstergesi göster; varsa içerikleri göster
       body: user == null
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -31,12 +28,10 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 1) Profil Bilgileri bölümü
-                  // Merkezde avatar, isim, email ve rol gösterilir.
                   Center(
                     child: Column(
                       children: [
-                        // Avatar: basit ikon kullanılmış, gerçek projede kullanıcı fotoğrafı konulabilir.
+                       
                         const CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.deepPurple,
@@ -100,10 +95,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const Divider(),
 
-                  // 3) Takip Edilen Bildirimler
-                  // Burada kullanıcı tarafından takip edilen bildirimlerin sayısını gösteririz.
-                  // Consumer kullanarak NotificationViewModel'deki değişiklikleri dinliyoruz,
-                  // böylece takip listesi güncellendiğinde sayı anında değişir.
+                 
                   Consumer<NotificationViewModel>(
                     builder: (context, notificationVM, child) {
                       // view model üzerinden kullanıcının takip ettikleri alınır
@@ -131,8 +123,6 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // 4) Çıkış Yap butonu
-                  // PushAndRemoveUntil ile navigasyon yığını temizlenerek Login ekranına yönlendirilir
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(
@@ -159,7 +149,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // Takip edilen bildirimleri gösteren alt modal
   void _showFollowedNotifications(BuildContext context, String uid) {
     // showModalBottomSheet ile ekranın altından kayan bir modal gösteriyoruz.
     showModalBottomSheet(

@@ -1,9 +1,9 @@
-// lib/views/auth/login_view.dart
 import 'package:akilli_kampus_proje/views/main/main_screen.dart';
+ // Giriş sonrası yönlendirilecek ana ekran
 // lib/views/auth/login_view.dart
 // Bu dosya uygulamanın giriş (login) ekranını içerir.
-// Aşağıda kullanılan importlar ve sabitler açıklamalı şekilde verilmektedir.
-import 'package:akilli_kampus_proje/views/main/main_screen.dart'; // Giriş sonrası yönlendirilecek ana ekran
+
+
 import 'package:flutter/material.dart'; // Flutter temel bileşenleri
 import 'package:provider/provider.dart'; // State management için Provider kullanıyoruz
 import '../../view_models/auth_view_model.dart'; // Kimlik doğrulama işlemleri için view model

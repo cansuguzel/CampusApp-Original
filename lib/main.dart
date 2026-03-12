@@ -5,17 +5,15 @@ import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
-// ViewModels
 import 'view_models/auth_view_model.dart';
 import 'view_models/notification_view_model.dart';
 
-// Views
 import 'views/auth/login_view.dart';
 import 'views/main/home_page.dart';
 
-// 🔥 TEST MODU — sadece sen kullanacaksın
+
 const bool testMode = false;
-const Widget testScreen = HomePage(); // Burayı istediğin sayfa yapabilirsin
+const Widget testScreen = HomePage(); 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,17 +38,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: testMode
-            ? testScreen       // 🔥 TEST MODU → Senin sayfan açılır
-            : const RootRouter(), // 🔥 NORMAL MOD → Login & yönlendirme
+            ? testScreen     
+            : const RootRouter(), 
       ),
     );
   }
 }
 
-/// ---------------------------------------------------------------
-///            🔥 NORMAL MOD İÇİN ROUTE YÖNETİCİSİ
-/// ---------------------------------------------------------------
-// main.dart içindeki RootRouter kısmını böyle güncelle:
 class RootRouter extends StatelessWidget {
   const RootRouter({super.key});
 
@@ -58,22 +52,20 @@ class RootRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<AuthViewModel>(
       builder: (context, authViewModel, _) {
-        // 1. Kullanıcı oturum açmamışsa doğrudan Login'e gönder
         if (authViewModel.currentUser == null) {
           return const LoginView();
         }
 
         final user = authViewModel.currentUser!;
 
-        // 2. Eğer rol bilgisi henüz gelmemişse (beklenmedik bir durum için koruma)
         if (user.role.isEmpty) {
           return const Scaffold(body: Center(child: CircularProgressIndicator()));
         }
 
       if (user.role == "admin") {
-  return const MainScreen(); // 🔥 Admin olsa bile MainScreen döndürülmeli!
+  return const MainScreen(); 
 } else {
-  return const MainScreen(); // Normal kullanıcı da MainScreen'e gitmeli
+  return const MainScreen(); 
 }
       },
     );

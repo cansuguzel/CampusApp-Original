@@ -43,7 +43,7 @@ class _MapViewState extends State<MapView> {
   // ve altında bir kart gösterilir. Null ise hiçbir kart gösterilmez.
   NotificationModel? _selected;
 
-  /// ✅ HomePage ile aynı normalizasyon (Türkçe karakter / boşluk / _ / büyük-küçük derdi biter)
+  ///  HomePage ile aynı normalizasyon (Türkçe karakter / boşluk / _ / büyük-küçük derdi biter)
   String _norm(String s) {
     return s
         .toLowerCase()
@@ -237,7 +237,7 @@ class _MapViewState extends State<MapView> {
     return "${diff.inDays} gün önce";
   }
 
-  /// ✅ Detail’den gelince haritayı o noktaya odaklar
+  ///  Detail’den gelince haritayı o noktaya odaklar
   Future<void> _focusToNotificationIfAny(GoogleMapController c, List<NotificationModel> currentList) async {
     final focus = widget.focusNotification;
     if (focus == null) return;

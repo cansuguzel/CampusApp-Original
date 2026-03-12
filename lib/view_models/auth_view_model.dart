@@ -1,4 +1,3 @@
-// lib/view_models/auth_view_model.dart (SON HALİ - YAPISAL OLARAK DÜZELTİLMİŞ)
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,7 @@ class AuthViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get errorMessage => _errorMessage;
 
-  // 🚨 CONSTRUCTOR: Uygulama başladığında mevcut oturumu kontrol eder.
+  // CONSTRUCTOR: Uygulama başladığında mevcut oturumu kontrol eder.
   AuthViewModel() {
     _initializeUser();
   }
@@ -35,10 +34,6 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
-  // ----------------------------------------------------
-  // DİĞER METOTLAR BURADAN SONRA BAŞLAMALIDIR
-  // ----------------------------------------------------
-
   // Hata mesajını temizleme
   void clearError() {
     _errorMessage = null;
@@ -51,7 +46,7 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // 1. Kayıt İşlemi (REGISTER USER)
+  // 1. Kayıt İşlemi
   Future<bool> registerUser({
     required String email,
     required String password,
@@ -70,7 +65,7 @@ class AuthViewModel extends ChangeNotifier {
         unit: unit,
       );
 
-      // Kayıt başarılı olduysa (Başarılı Senaryo)
+      // Kayıt başarılı olduysa
       if (_currentUser != null) {
         _isLoading = false;
         _errorMessage = null;
@@ -81,7 +76,7 @@ class AuthViewModel extends ChangeNotifier {
       _errorMessage = _getErrorMessage(e);
     }
 
-    // Hata veya başarısız Auth sonucu (Hata Senaryosu)
+    // Hata veya başarısız Auth sonucu için
     _isLoading = false;
     notifyListeners();
     return false;
@@ -89,17 +84,17 @@ class AuthViewModel extends ChangeNotifier {
 
   // 2. Giriş İşlemi (LOGIN USER)
   Future<bool> loginUser({required String email, required String password}) async {
-    print("🟡 [loginUser] başladı");
+    print(" [loginUser] başladı");
     _isLoading = true;
     _errorMessage = null;
     notifyListeners(); // Loading başladı
 
     try {
       _currentUser = await _authService.signIn(email: email, password: password);
-      print("🟢 [loginUser] signIn sonucu: ${_currentUser?.email}");
+      print(" [loginUser] signIn sonucu: ${_currentUser?.email}");
 
       if (_currentUser != null) {
-        print("🟢 [loginUser] notifyListeners çağrılıyor...");
+        print(" [loginUser] notifyListeners çağrılıyor...");
         notifyListeners();
         return true;
       }
@@ -114,7 +109,7 @@ class AuthViewModel extends ChangeNotifier {
     return false;
   }
 
-  // 3. Şifre Sıfırlama İşlemi (RESET PASSWORD)
+  // 3. Şifre Sıfırlama İşlemi 
   Future<void> resetPassword({required String email}) async {
     _isLoading = true;
     _errorMessage = null;

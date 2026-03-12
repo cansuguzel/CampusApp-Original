@@ -4,7 +4,6 @@ import '../models/notification_model.dart';
 class NotificationService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  // Yeni bildirim ekleme
   Future<void> addNotification(NotificationModel notification) async {
     await _db.collection('notifications').add(notification.toMap());
   }

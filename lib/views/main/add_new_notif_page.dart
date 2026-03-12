@@ -1,5 +1,3 @@
-// Flutter çekirdeğinden bazı paketleri içe aktarıyoruz.
-// Bu paketler kullanıcı arayüzü ve harita/konum işlemleri için gerekli.
 // `foundation` ve `gestures` paketleri, Google Map widget'ı ile
 // dokunma/gestures davranışlarını düzgün yönetmek için kullanılır.
 import 'package:flutter/foundation.dart';
@@ -121,16 +119,8 @@ class _AddNewNotificationPageState extends State<AddNewNotificationPage> {
     });
   }
 
-  // 💾 BİLDİRİM KAYDET VE ONAY MESAJI
-  // Formdaki verileri toplayıp yeni bir bildirim olarak ViewModel aracılığıyla
-  // veritabanına kaydeden fonksiyon.
-  // Kontroller:
-  // - Başlık boş olamaz
-  // - Açıklama boş olamaz
-  // - Konum seçilmiş olmalı
   // Eğer eksik veri varsa kullanıcıya SnackBar ile uyarı gösterir.
   Future<void> saveNotification() async {
-    // Zorunlu alan kontrolü: eksik alan varsa kullanıcıyı uyarıp çık.
     if (titleController.text.isEmpty ||
         descController.text.isEmpty ||
         selectedLocation == null) {
@@ -196,7 +186,7 @@ class _AddNewNotificationPageState extends State<AddNewNotificationPage> {
     }
   }
 
-  // 🔲 Ortak Form Kartı
+  //  Ortak Form Kartı
   // Form içindeki bölümleri görsel olarak birbirinden ayırmak için kullanılan
   // yardımcı widget. Tek bir yerden stil uygulamak için fonksiyon haline getirildi.
   Widget formCard({required Widget child}) {

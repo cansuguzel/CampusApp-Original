@@ -3,22 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../view_models/auth_view_model.dart';
-import 'login_view.dart'; // Göreceli yoldan import ediyoruz
+import 'login_view.dart'; 
 
 // Bu dosya: Kayıt (Register) ekranını uygular.
 // Amaç: Kullanıcının ad, e-posta, şifre ve birim bilgilerini alıp
 // AuthViewModel üzerinden kayıt işlemini başlatmak.
-// ÖNEMLI: Bu yama sadece açıklama (yorum) satırları ekler.
-// Kodun işleyişi veya mantığına hiç müdahale edilmemiştir.
-
-// Modern Uygulama İçin Tema Tanımları (Burada tutmak yerine ayrı bir tema dosyası önerilir)
-// Aşağıdaki sabitler görünümde tekrar kullanılmak üzere tanımlanmıştır.
 // Renk/sınır/padding değerleri UI tutarlılığı için sabitlendirilmiştir.
-const Color kPrimaryColor = Color(0xFF1E88E5); // Mavi tonu (Başlık)
-const Color kAccentColor = Color(0xFF4CAF50); // Parlak yeşil (Buton vurgusu)
-const Color kBackgroundColor = Color(0xFFF5F5F5); // Açık gri arka plan
-const double kPadding = 30.0; // Dış boşluk/padding değeri
-const double kBorderRadius = 12.0; // Kart köşe yuvarlatma değeri
+const Color kPrimaryColor = Color(0xFF1E88E5); 
+const Color kAccentColor = Color(0xFF4CAF50);
+const Color kBackgroundColor = Color(0xFFF5F5F5); 
+const double kPadding = 30.0;
+const double kBorderRadius = 12.0;
 
 
 class RegisterView extends StatefulWidget {
@@ -29,10 +24,6 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  // 1. Text Controller'ları Tanımlama
-  // Bu controller'lar, form alanlarına girilen değerleri okumak ve
-  // gerektiğinde temizlemek/dispose etmek için kullanılır. Controller'ları
-  // widget yaşam döngüsünde dispose etmeyi unutmayın.
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -42,7 +33,6 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void dispose() {
-    // Controller'ları serbest bırakmak bellek sızıntılarını önler.
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -50,11 +40,10 @@ class _RegisterViewState extends State<RegisterView> {
     super.dispose();
   }
 
-  // 2. Kayıt İşlemi Fonksiyonu (Düzeltilmiş Yönlendirme ve Mesaj Mantığı)
+  // 2. Kayıt İşlemi Fonksiyonu
   void _handleRegister(AuthViewModel viewModel) async {
     // Form geçerliyse (validator'lar null döndürmüyorsa) işlemi başlat.
     if (_formKey.currentState!.validate()) {
-      // ViewModel'in registerUser metodu asenkron çalışır.
       // Burada kullanıcı bilgilerini trim() ile temizleyip gönderiyoruz.
       bool success = await viewModel.registerUser(
         email: _emailController.text.trim(),
@@ -64,15 +53,13 @@ class _RegisterViewState extends State<RegisterView> {
       );
 
       // Kayıt başarılıysa kullanıcıyı bilgilendir ve giriş ekranına yönlendir.
-      // 'mounted' kontrolü widget'ın hala ağaçta olduğunu garanti eder.
       if (success && mounted) {
-        // Başarı SnackBar'ı
+       
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Kayıt başarılı! Lütfen yeni hesabınızla giriş yapın.')),
         );
 
-        // Login ekranına yönlendirme. pushReplacement yerine push kullanılmıştır,
-        // burada geri dönüş mantığı uygulamaya göre seçilebilir.
+        
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const LoginView()),
@@ -227,8 +214,7 @@ class _RegisterViewState extends State<RegisterView> {
     bool obscureText = false,
     String? Function(String?)? validator,
   }) {
-    // Tek bir fonksiyonla tüm alanların görünümünü merkezi olarak tanımlıyoruz.
-    // Böylece stil tutarlılığı ve bakım kolaylığı sağlanır.
+ 
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,

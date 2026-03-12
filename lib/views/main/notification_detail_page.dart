@@ -1,20 +1,15 @@
 // Bu sayfa bir bildirimin detaylarını gösterir.
-// Aşağıdaki importlar: temel UI, state yönetimi ve Firestore tipi için gerekli.
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// Uygulama içi modeller ve view model'ler
 import '../../models/notification_model.dart';
 import '../../view_models/notification_view_model.dart';
 import '../../view_models/auth_view_model.dart';
 
-// Harita görünümüne gidebilmek için MapView import ediliyor.
-// Eğer proje yapında map_view farklı konumdaysa bu yolu düzelt.
 import '../main/map_view.dart';
 
 class NotificationDetailPage extends StatelessWidget {
-  // Detayı gösterilecek bildirim nesnesi dışarıdan alınır (required).
   final NotificationModel notification;
 
   const NotificationDetailPage({super.key, required this.notification});
@@ -64,7 +59,6 @@ class NotificationDetailPage extends StatelessWidget {
         ],
       ),
 
-      // İçerik: başlık, açıklama, detay kartı ve haritada göster butonu
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -202,14 +196,13 @@ class NotificationDetailPage extends StatelessWidget {
     );
   }
 
-  // Yardımcı: detay satırı oluşturur (ikon + başlık + değer)
   Widget _buildDetailRow(IconData icon, String title, String value, Color valueColor) {
     return Row(
       children: [
         // Sol tarafta ikon
         Icon(icon, color: Colors.grey, size: 24),
         const SizedBox(width: 16),
-        // Sağında başlık küçük, değer ise kalın ve renkli
+      
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
