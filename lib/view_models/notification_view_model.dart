@@ -7,7 +7,6 @@ import '../models/notification_model.dart';
 // - Firestore koleksiyonunu dinler ve verileri `notifications` listesine yazar.
 // - Kullanıcıların takip etme (follow) durumlarını değiştirme, bildirim ekleme,
 //   silme ve güncelleme gibi işlemler burada toplanır.
-// Not: Bu dosyaya sadece açıklayıcı yorumlar eklendi; kodun çalışmasına dokunulmadı.
 
 class NotificationViewModel extends ChangeNotifier {
   // Firestore örneğine erişim. Bu değişken üzerinden DB işlemleri yapılır.

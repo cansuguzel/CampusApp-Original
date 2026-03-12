@@ -1,10 +1,6 @@
-// Bu dosya uygulamanın ana bildirim listesini gösteren sayfasıdır.
-// Aşağıdaki importlar, bu dosyada kullanılan kütüphaneleri ve
-// uygulama içi modelleri / view modelleri getirir.
-// Her bir importun ne işe yaradığını alt satırlarda açıklıyorum.
 import 'dart:convert'; // JSON encode/decode işlemleri için kullanılır. Map'i string'e çevirip kaydetmek veya tersini yapmak için.
 import 'package:flutter/material.dart'; // Flutter'ın temel UI bileşenleri, widget'lar, temalar vs. için gereklidir.
-import 'package:provider/provider.dart'; // State management için Provider kullanılıyor; view model'leri dinlemek için.
+import 'package:provider/provider.dart'; 
 import 'package:cloud_firestore/cloud_firestore.dart'; // Firestore'un Timestamp tipi kullanılıyor; veritabanı ile iletişim için.
 import 'package:shared_preferences/shared_preferences.dart'; // Cihazda küçük ayar/önbellek tutmak için kullanılır.
 
@@ -68,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     }).join(' ');
   }
 
-  /// ✅ TEK NORMALİZASYON (Home + Map aynı)
+  ///  TEK NORMALİZASYON (Home + Map aynı)
   /// - boşluk/underscore siler
   /// - Türkçe karakterleri düzleştirir
   /// Örn: "Teknik Arıza" / "teknik_ariza" / "teknikAriza" => "teknikariza"
@@ -100,10 +96,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  /// ✅ SharedPreferences KEY (user bazlı)
+  ///  SharedPreferences KEY (user bazlı)
   String _prefsKeyForUser(String uid) => "followed_last_status_$uid";
 
-  /// ✅ Telefona kaydedilmiş takip-status map’ini yükle
+  /// Telefona kaydedilmiş takip-status map’ini yükle
   Future<void> _loadLastSeenFollowedStatus(String uid) async {
     // SharedPreferences örneğini alıyoruz; bu telefon hafızasındaki küçük anahtar-değer deposudur.
     final prefs = await SharedPreferences.getInstance();
@@ -130,14 +126,14 @@ class _HomePageState extends State<HomePage> {
     _prefsLoaded = true;
   }
 
-  /// ✅ Güncel takip-status map’ini telefona kaydet
+  ///  Güncel takip-status map’ini telefona kaydet
   Future<void> _saveLastSeenFollowedStatus(String uid, Map<String, String> map) async {
     // Verilen map'i JSON string'e çevirip SharedPreferences'a kaydeder.
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_prefsKeyForUser(uid), jsonEncode(map));
   }
 
-  /// ✅ Görev: Takip edilen bildirimin durumu değişince (girişte) uyarı göster
+  ///  Görev: Takip edilen bildirimin durumu değişince (girişte) uyarı göster
   Future<void> _checkFollowedStatusChangesOnLogin({
     required List<NotificationModel> all,
     required String uid,
@@ -192,7 +188,7 @@ class _HomePageState extends State<HomePage> {
     _lastSeenFollowedStatus = currentSnapshot;
   }
 
-  /// ✅ Kullanıcı değişince (logout/login) state reset + prefs yükle
+  ///  Kullanıcı değişince (logout/login) state reset + prefs yükle
   Future<void> _handleUserChanged(String uid) async {
     // Kullanıcı değiştiği için önce son bilinen kullanıcı id'sini güncelle.
     _lastUserId = uid;
@@ -262,11 +258,11 @@ class _HomePageState extends State<HomePage> {
       return matchesSearch && matchesStatus && matchesType;
     }).toList();
 
-    // ✅ ACİL duyurular ayrı
+    //  ACİL duyurular ayrı
     final emergencyNotifs = filteredNotifications.where((n) => _norm(n.type) == "acil").toList();
     final normalNotifs = filteredNotifications.where((n) => _norm(n.type) != "acil").toList();
 
-    // ✅ Görev-1: kullanıcı giriş yaptıktan sonra acil duyuru varsa HER GİRİŞTE 1 kere uyar
+    //  Görev-1: kullanıcı giriş yaptıktan sonra acil duyuru varsa HER GİRİŞTE 1 kere uyar
     if (myUid != null && emergencyNotifs.isNotEmpty && !_emergencySnackShown) {
       _emergencySnackShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -276,7 +272,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
-    // ✅ Görev-SON: takip edilen bildirim status değişimini girişte kontrol et
+    //  Görev-SON: takip edilen bildirim status değişimini girişte kontrol et
     if (myUid != null && _prefsLoaded) {
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         if (!mounted) return;
@@ -293,9 +289,7 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Üstte küçük bir hoşgeldin yazısı gösterilir.
             const Text("Hoşgeldin,", style: TextStyle(fontSize: 14, color: Colors.grey)),
-            // Alt satırda kullanıcının adı büyük ve kalın şekilde gösterilir.
             Text(
               userName,
               style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),

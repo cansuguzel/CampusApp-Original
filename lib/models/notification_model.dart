@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationModel {
-  String? notifId;                // Firestore document ID
+  String? notifId;
   String title;
   String description;
   String type;
@@ -25,11 +25,10 @@ class NotificationModel {
     required this.followers,
   });
 
-  // Firestore -> Model
   factory NotificationModel.fromMap(
       Map<String, dynamic> map, String documentId) {
     return NotificationModel(
-      notifId: documentId,                       // ID buraya atanıyor
+      notifId: documentId,
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       type: map['type'] ?? '',
@@ -43,7 +42,6 @@ class NotificationModel {
     );
   }
 
-  // Model -> Firestore
   Map<String, dynamic> toMap() {
     return {
       "title": title,

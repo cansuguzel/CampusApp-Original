@@ -17,7 +17,7 @@ class UserModel {
     required this.preferences,
   });
 
-  // Firestore'dan veri okumak için
+ 
 factory UserModel.fromMap(Map<String, dynamic> map, String id) {
   return UserModel(
     uid: id,
@@ -25,7 +25,7 @@ factory UserModel.fromMap(Map<String, dynamic> map, String id) {
     email: map['email'] ?? '',
     role: map['role'] ?? 'user',
     unit: map['unit'] ?? '',
-    // map['preferences'] kullanarak hata veren kısmı düzeltiyoruz
+    
     preferences: Map<String, bool>.from(map['preferences'] ?? {
       'health': true,
       'technical': true,
